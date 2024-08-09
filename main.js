@@ -68,6 +68,8 @@ Compare choices
         Increment player score
         Winner announcement
 */
+let humanScore = 0;
+let computerScore = 0;
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3);
@@ -93,5 +95,30 @@ function getHumanChoice() {
     } else {
         console.log("invalid input, please type: \"rock\", \"paper\", or \"scissors\"");
         getHumanChoice();
+    }
+}
+
+function compareChoice(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        return "tie";
+    }
+    if (humanChoice === "rock") {
+        if (computerChoice === "paper") {
+            return "computer";
+        } else {
+            return "human";
+        }
+    } else if (humanChoice === "paper") {
+        if (computerChoice === "scissors") {
+            return "computer";
+        } else {
+            return "human";
+        }
+    } else if (humanChoice === "scissor") {
+        if (computerChoice === "rock") {
+            return "computer";
+        } else {
+            return "human";
+        }
     }
 }
