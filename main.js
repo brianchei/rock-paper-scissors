@@ -68,8 +68,6 @@ Compare choices
         Increment player score
         Winner announcement
 */
-let humanScore = 0;
-let computerScore = 0;
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3);
@@ -114,7 +112,7 @@ function compareChoice(humanChoice, computerChoice) {
         } else {
             return "human";
         }
-    } else if (humanChoice === "scissor") {
+    } else if (humanChoice === "scissors") {
         if (computerChoice === "rock") {
             return "computer";
         } else {
@@ -123,19 +121,38 @@ function compareChoice(humanChoice, computerChoice) {
     }
 }
 
-function playRound(humanChoice, computerChoice) {
-    let winner = compareChoice(humanChoice, computerChoice);
-    if (winner === "tie") {
-        console.log(`Tie! You and the computer both chose ${humanChoice}!`);
-        return winner;
-    } else if (winner === "computer") {
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}!`);
-        return winner;
-    } else if (winner === "human") {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
-        return winner;
+function playGame(roundCount) {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < roundCount; i++) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+
+    if (humanScore === computerScore) {
+        console.log("Tie game!")
+    } else if (humanScore > computerScore) {
+        console.log("You win!");
     } else {
-        console.log("Unexpected error!");
-        return winner;
+        console.log("Computer wins!");
+    }
+
+    function playRound(humanChoice, computerChoice) {
+        let winner = compareChoice(humanChoice, computerChoice);
+        if (winner === "tie") {
+            console.log(`Tie! You and the computer both chose ${humanChoice}!`);
+            return winner;
+        } else if (winner === "computer") {
+            computerScore++;
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}!`);
+            return winner;
+        } else if (winner === "human") {
+            humanScore++;
+            console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+            return winner;
+        } else {
+            console.log("Unexpected error!");
+            return winner;
+        }
     }
 }
