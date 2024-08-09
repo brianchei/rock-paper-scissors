@@ -80,3 +80,18 @@ function getComputerChoice() {
         return "scissors";
     }
 }
+
+function getHumanChoice() {
+    let choice = prompt("rock, paper, or scissors?");
+    if (!choice) {
+        console.log("falsy value input, please type: \"rock\", \"paper\", or \"scissors\"");
+    }
+    choice = choice.toLowerCase()
+    if (choice === "rock" || choice === "paper" || choice === "scissors") {
+        console.log(choice);
+        return choice;
+    } else {
+        console.log("invalid input, please type: \"rock\", \"paper\", or \"scissors\"");
+        getHumanChoice();
+    }
+}
