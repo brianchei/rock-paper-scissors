@@ -122,3 +122,20 @@ function compareChoice(humanChoice, computerChoice) {
         }
     }
 }
+
+function playRound(humanChoice, computerChoice) {
+    let winner = compareChoice(humanChoice, computerChoice);
+    if (winner === "tie") {
+        console.log(`Tie! You and the computer both chose ${humanChoice}!`);
+        return winner;
+    } else if (winner === "computer") {
+        console.log(`You lose! ${computerChoice} beats ${humanChoice}!`);
+        return winner;
+    } else if (winner === "human") {
+        console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+        return winner;
+    } else {
+        console.log("Unexpected error!");
+        return winner;
+    }
+}
