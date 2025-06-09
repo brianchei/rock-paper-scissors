@@ -85,6 +85,7 @@ function getHumanChoice() {
     let choice = prompt("rock, paper, or scissors?");
     if (!choice) {
         console.log("falsy value input, please type: \"rock\", \"paper\", or \"scissors\"");
+        return getHumanChoice();
     }
     choice = choice.toLowerCase()
     if (choice === "rock" || choice === "paper" || choice === "scissors") {
@@ -92,7 +93,7 @@ function getHumanChoice() {
         return choice;
     } else {
         console.log("invalid input, please type: \"rock\", \"paper\", or \"scissors\"");
-        getHumanChoice();
+        return getHumanChoice();
     }
 }
 
