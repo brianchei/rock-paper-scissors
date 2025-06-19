@@ -122,38 +122,71 @@ function compareChoice(humanChoice, computerChoice) {
     }
 }
 
-function playGame(roundCount) {
-    let humanScore = 0;
-    let computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
-    for (let i = 0; i < roundCount; i++) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
-
-    if (humanScore === computerScore) {
-        console.log("Tie game!")
-    } else if (humanScore > computerScore) {
-        console.log("You win!");
-    } else {
-        console.log("Computer wins!");
-    }
-
-    function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice, computerChoice) {
+    while (humanScore < 5 && computerScore < 5) {
         let winner = compareChoice(humanChoice, computerChoice);
         if (winner === "tie") {
-            console.log(`Tie! You and the computer both chose ${humanChoice}!`);
+            results.textContent = `Tie! You and the computer both chose ${humanChoice}!`
+            scoreboard.textContent = `You: ${humanScore}\nComputer: ${computerScore}`;
             return winner;
         } else if (winner === "computer") {
             computerScore++;
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}!`);
+            results.textContent = `You lose! ${computerChoice} beats ${humanChoice}!`
+            scoreboard.textContent = `You: ${humanScore}\nComputer: ${computerScore}`;
             return winner;
         } else if (winner === "human") {
             humanScore++;
-            console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+            results.textContent = `You win! ${humanChoice} beats ${computerChoice}!`
+            scoreboard.textContent = `You: ${humanScore}\nComputer: ${computerScore}`;
             return winner;
         } else {
-            console.log("Unexpected error!");
+            results.textContent = "Unexpected error!";
             return winner;
         }
     }
+    if (humanScore === 5) {
+    results.textContent = "Congratulations! You won!";
+    } else {
+    results.textContent = "Sorry, the computer won!";
+    }
 }
+
+// UI
+
+let choices = document.createElement('div');
+let results = document.createElement('div');
+results.textContent = 'Results';
+let scoreboard = document.createElement('div');
+scoreboard.textContent = 'Scoreboard';
+
+let content = document.querySelector('.content');
+content.appendChild(choices);
+content.appendChild(results);
+content.appendChild(scoreboard);
+
+
+let rock = document.createElement('button');
+rock.textContent = 'ROCK';
+let paper = document.createElement('button');
+paper.textContent = 'PAPER';
+let scissors = document.createElement('button');
+scissors.textContent = 'SCISSORS';
+
+rock.classList.add('button');
+paper.classList.add('button');
+scissors.classList.add('button');
+
+rock.addEventListener('click', () => {playRound('rock', getComputerChoice())})
+paper.addEventListener('click', () => {playRound('paper', getComputerChoice())})
+scissors.addEventListener('click', () => {playRound('scissors', getComputerChoice())})
+
+choices.classList.add('choices')
+results.classList.add('result');
+scoreboard.classList.add('scoreboard');
+
+choices.appendChild(rock);
+choices.appendChild(paper);
+choices.appendChild(scissors);
